@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-MaxMissedCleavages = 2
+MaxMissedCleavages = 3
 
 Protein = Struct.new(:peptides, :id, :entry_name, :protein_name, :organism_name, :gene_name, :sequence)
 Peptide = Struct.new(:sequence, :missed_cleavages, :protein_ids)
