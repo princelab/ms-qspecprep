@@ -23,10 +23,10 @@ describe "Peptide_DB" do
 		@digest = PepDigest.new(tfasta2)
 		@digest.digest
 		puts "-------------------\nThe medium test file took #{Time.now-t}\n--------------------"
-#		t = Time.now
-#		@digest = PepDigest.new(tfasta3)
-#		@digest.digest
-#		puts "-------------------\nThe largest test file took #{Time.now-t}\n--------------------"
+		t = Time.now
+		@digest = PepDigest.new(tfasta3)
+		@digest.digest
+		puts "-------------------\nThe largest test file took #{Time.now-t}\n--------------------"
 	end
 	it "Parses Uniprot FASTA correctly (ID)" do 
 		@digest.proteins.first.id.should.equal "P31946"

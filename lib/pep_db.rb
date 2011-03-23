@@ -69,21 +69,18 @@ class PepDigest
 		end
 	end
 	def digest
-	puts "\ndigesting"
 		@peptides = {}
 		@proteins.each do |prot|
 			seq = prot.sequence
-			(0..MaxMissedCleavages).each do |missed_cleav|
-				digester(seq, missed_cleav).each do |pept|
-					if @peptides[pept.to_sym].nil?
-						@peptides[pept.to_sym] = [prot.id]
-					else
-						@peptides[pept.to_sym] = @peptides[pept.to_sym] << prot.id
-						@peptides[pept.to_sym].uniq!
-					end
-					prot.peptides << pept
-#			 ###		Peptide = Struct.new(:sequence, :protein_ids)
+			digester(seq, MaxMissedCleavages).each do |pept|
+				if @peptides[pept.to_sym].nil?
+					@peptides[pept.to_sym] = [prot.id]
+				else
+					@peptides[pept.to_sym] = @peptides[pept.to_sym] << prot.id
+					@peptides[pept.to_sym].uniq!
 				end
+				prot.peptides << pept
+#			 ###		Peptide = Struct.new(:sequence, :protein_ids)
 			end
  		end
 #		p @peptides
