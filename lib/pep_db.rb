@@ -3,7 +3,7 @@
 MaxMissedCleavages = 3
 
 Protein = Struct.new(:peptides, :id, :entry_name, :protein_name, :organism_name, :gene_name, :sequence)
-Peptide = Struct.new(:sequence, :missed_cleavages, :protein_ids)
+Peptide = Struct.new(:sequence, :protein_ids)
 
 def digester(string, missed_cleavages) # Returns an array of chomped sequences
 	arr = (0..(string.upcase.length-1)).map {|i| string[i]}
@@ -66,12 +66,15 @@ class PepDigest
 			seq = prot.sequence
 			(0..MaxMissedCleavages).each do |missed_cleav|
 				digester(seq, missed_cleav).each do |pept|
-					tmp_peps << Peptide.new(pept, missed_cleav, prot.id)
-#			 ###		Peptide = Struct.new(:sequence, :missed_cleavages, :protein_ids)
+					tmp_peps << Peptide.new(pept, prot.id)
+#			 ###		Peptide = Struct.new(:sequence, :protein_ids)
 				end
 			end
  		end
-		p tmp_peps.sort_by{|a| [a.sequence, a.missed_cleavages]}
+		p tmp_peps.sort_by{|a| [a.sequence]}
+
+#		HOW Do I combine the duplicates by appending the protein tag to the list of peptides?  
+			## Do I need to keep track of the missed cleavages?  Can't I just calculate that later, if I ever want it, with less overhead and faster than moving them around the entire time?  TRYING IT@!
 	end
 end
 
